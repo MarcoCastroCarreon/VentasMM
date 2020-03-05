@@ -7,6 +7,9 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
+        "class-transformer": "^0.2.3",
+        "class-transformer-validator": "^0.8.0",
+        "class-validator": "^0.11.0",
         "lambda-proxy-utils": "^2.1.4",
         "lodash": "^4.17.15",
         "middy": "^0.33.2",

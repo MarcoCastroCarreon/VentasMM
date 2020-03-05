@@ -16,5 +16,5 @@ export async function schemaValidator(
 }
 
 export async function parseError(data): Promise<string[]> {
-  return [];
+  return data;
 }

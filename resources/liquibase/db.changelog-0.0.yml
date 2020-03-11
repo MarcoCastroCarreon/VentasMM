@@ -1,0 +1,365 @@
+databaseChangeLog:
+  - preConditions:
+      - runningAs:
+          username: Adaswordwr
+
+  - changeSet:
+      id: 1
+      author: aesqueda
+      changes:
+        - createTable:
+            tableName: USER
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: EMAIL
+                  type: VARCHAR(55)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: PASSWORD
+                  type: VARCHAR(85)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: USER_TYPE
+                  type: VARCHAR(55)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: STATUS
+                  type: VARCHAR(65)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CREATION_DATE
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: TOKEN
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+      rollback:
+        - sqlFile:
+            path: ./SQL/CREATE_USER_TABLE_ROLLBAKC.sql
+
+  - changeSet:
+      id: 2
+      author: aesqueda
+      changes:
+        - createTable:
+            tableName: CAT_COUNTRY
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: COUNTRY_NAME
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: COUNTRY_CODE
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 3
+      author: aesqueda
+      changes:
+        - createTable:
+            tableName: CAT_PRODUCT
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: PRODUCT_NAME
+                  type: VARCHAR(85)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PRODUCT_TYPE
+                  type: VARCHAR(75)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PRICE
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: DESCRIPTION
+                  type: VARCHAR(999)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 4
+      author: aesqueda
+      changes:
+        - createTable:
+            tableName: USER_PROPERTIES
+            columns:
+              - column:
+                  name: USER_ID
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: VARCHAR(55)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: LAST_NAME
+                  type: VARCHAR(65)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: COUNTRY_ID
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PHONE
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ADDRESS
+                  type: VARCHAR(90)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 5
+      author: aesqueda
+      changes:
+        - createTable:
+            tableName: SALE
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: WORKER_ID
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CLIENT_ID
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: ADMIN_ID
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: SOLD_DATE
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: SALE_TYPE
+                  type: VARCHAR(55)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: SALE_PROFIT
+                  type: FLOAT
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 6
+      author: aesqueda
+      changes:
+        - createTable:
+            tableName: SALE_PRODUCT
+            columns:
+              - column:
+                  name: SALE_ID
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: PRODUCT_ID
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 7
+      author: aesqueda
+      changes:
+        - createTable:
+            tableName: CLIENT_COMMENTS
+            columns:
+              - column:
+                  name: SALE_ID
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: CLIENT_ID
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: COMMENT
+                  type: VARCHAR(999)
+                  constraints:
+                    nullable: false
+  # FOREIGN KEYS TABLE USER PROPERTIES
+  - changeSet:
+      id: 8
+      author: aesqueda
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_USER_PROPERTIES_0
+            baseTableName: USER_PROPERTIES
+            baseColumnNames: USER_ID
+            referencedTableName: USER
+            referencedColumnNames: ID
+            deferrable: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            initiallyDeferred: false
+  - changeSet:
+      id: 9
+      author: aesqueda
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_USER_PROPERTIES_1
+            baseTableName: USER_PROPERTIES
+            baseColumnNames: COUNTRY_ID
+            referencedTableName: CAT_COUNTRY
+            referencedColumnNames: ID
+            deferrable: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            initiallyDeferred: false
+  # FOREIGN KEYS TABLE SALE
+  - changeSet:
+      id: 10
+      author: aesqueda
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_SALE_0
+            baseTableName: SALE
+            baseColumnNames: WORKER_ID
+            referencedTableName: USER
+            referencedColumnNames: ID
+            deferrable: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            initiallyDeferred: false
+  - changeSet:
+      id: 11
+      author: aesqueda
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_SALE_1
+            baseTableName: SALE
+            baseColumnNames: CLIENT_ID
+            referencedTableName: USER
+            referencedColumnNames: ID
+            deferrable: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            initiallyDeferred: false
+  - changeSet:
+      id: 12
+      author: aesqueda
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_SALE_2
+            baseTableName: SALE
+            baseColumnNames: ADMIN_ID
+            referencedTableName: USER
+            referencedColumnNames: ID
+            deferrable: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            initiallyDeferred: false
+  # FOREIGN KEYS TABLE SALE_PRODUCT
+  - changeSet:
+      id: 13
+      author: aesqueda
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_SALE_PRODUCT_0
+            baseTableName: SALE_PRODUCT
+            baseColumnNames: SALE_ID
+            referencedTableName: SALE
+            referencedColumnNames: ID
+            deferrable: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            initiallyDeferred: false
+  - changeSet:
+      id: 14
+      author: aesqueda
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_SALE_PRODUCT_1
+            baseTableName: SALE_PRODUCT
+            baseColumnNames: PRODUCT_ID
+            referencedTableName: CAT_PRODUCT
+            referencedColumnNames: ID
+            deferrable: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            initiallyDeferred: false
+  # FOREIGN KEYS TABLE CLIENT_COMMENTS
+  - changeSet:
+      id: 15
+      author: aesqueda
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_CLIENT_COMMENTS_0
+            baseTableName: CLIENT_COMMENTS
+            baseColumnNames: SALE_ID
+            referencedTableName: SALE
+            referencedColumnNames: ID
+            deferrable: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            initiallyDeferred: false
+  - changeSet:
+      id: 16
+      author: aesqueda
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_CLIENT_COMMENTS_1
+            baseTableName: CLIENT_COMMENTS
+            baseColumnNames: CLIENT_ID
+            referencedTableName: USER
+            referencedColumnNames: ID
+            deferrable: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            initiallyDeferred: false

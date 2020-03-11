@@ -1,7 +1,7 @@
 DB_CONNECTION: &DB_CONNECTION
     DB_PORT: 3306
     DB_HOST: localhost
-    DB_SCHEMA: user
+    DB_SCHEMA: ventasmm
     DB_USERNAME: root
     DB_PASSWORD: alma123
 

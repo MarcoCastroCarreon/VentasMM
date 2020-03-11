@@ -13,6 +13,7 @@ export const schemaValidatorMiddleware: Function = (config: any) => {
       console.info("END ==> schemaValidator");
     },
     onError: (handler: any) => {
+      console.log('Error middy validator ===>');
       console.log(handler.error);
       const e = handlerException(handler.error);
       return handler.callback(null, e);

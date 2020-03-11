@@ -25,6 +25,9 @@
         <column name="CREATION_DATE" type="DATETIME">
             <constraints nullable="false"/>
         </column>
+        <column name="TOKEN" type="VARCHAR(200)">
+            <constraints nullable="false"/>
+        </column>
     </createTable>
 
     <createTable tableName="CAT_COUNTRY">

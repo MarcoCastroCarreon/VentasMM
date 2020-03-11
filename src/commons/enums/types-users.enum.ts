@@ -1,5 +1,5 @@
-export enum UserTypes{
-    ADMIN,
-    WORKER,
-    CLIENT
+export enum UserTypesEnum {
+    ADMIN = "ADMIN",
+    WORKER = "WORKER",
+    CLIENT = "CLIENT"
 }

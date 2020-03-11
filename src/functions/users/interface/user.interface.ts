@@ -4,6 +4,12 @@ export interface CreateUserRequest{
     userType: string,
     status: string,
     creationDate: Date,
+    name: string,
+    lastName: string,
+    country: number,
+    phone: string,
+    address: string,
+    token: string
 }
 
 export interface CreateUserResponse{

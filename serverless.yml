@@ -23,5 +23,5 @@ provider:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
 functions:
-  - ${file(./src/functions/products/index.functions.yml)}
+  # - ${file(./src/functions/products/index.functions.yml)}
   - ${file(./src/functions/users/index.functions.yml)}

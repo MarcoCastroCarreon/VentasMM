@@ -1,5 +1,4 @@
-import { IsDefined, IsNotEmpty, IsString, IsDate, IsEnum } from "class-validator";
-import { UserTypes } from "../../../commons/enums/types-users.enum";
+import { IsDefined, IsNotEmpty, IsString} from "class-validator";
 
 
 export class CreateUserSchema {
@@ -13,19 +12,4 @@ export class CreateUserSchema {
     @IsNotEmpty()
     @IsString()
     password: string;
-
-    @IsDefined()
-    @IsNotEmpty()
-    @IsEnum(UserTypes,{message: 'Not valid enum value'})
-    userType: UserTypes;
-
-    @IsDefined()
-    @IsNotEmpty()
-    @IsString()
-    status: string;
-
-    @IsNotEmpty()
-    @IsDate()
-    creationDate: Date;
-
 }

@@ -1,0 +1,8 @@
+createUserAdmin: 
+    handler: src/functions/users/create.handler
+    environment: ${file(environment/variables.yml):CREATE_USER_ENV}
+    events:
+        - http:
+            method: post
+            path: admin/users
+            cors: true

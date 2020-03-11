@@ -1,0 +1,9 @@
+DB_CONNECTION: &DB_CONNECTION
+    DB_PORT: 3306
+    DB_HOST: localhost
+    DB_SCHEMA: ventasmm
+    DB_USERNAME: root
+    DB_PASSWORD: alma123
+
+CREATE_USER_ENV:
+    <<: *DB_CONNECTION

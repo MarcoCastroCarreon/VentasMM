@@ -1,5 +1,5 @@
 import { IsDefined, IsNotEmpty, IsString } from "class-validator";
-
+//EXAMPLE
 export class CreateUserExampleSchema {
   @IsDefined()
   @IsNotEmpty()

@@ -1,0 +1,2 @@
+liquibase --driver=com.mysql.cj.jdbc.Driver --classpath=C:\tools\snakeyaml-1.12.jar --classpath=C:\tools\mysql-connector-java-8.0.18\mysql-connector-java-8.0.18.jar  --changeLogFile=db.changelog-0.0.xml --url="jdbc:mysql://localhost:3306/ventasmm?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false" --username=root --password=alma123 update 
+pause

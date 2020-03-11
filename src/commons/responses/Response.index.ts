@@ -8,6 +8,14 @@ export default class ResponseCode {
         return this.parse(HttpStatusCode.OK, data, headers);
     }
 
+    static Created(data: any, headers?: any) {
+        return this.parse(HttpStatusCode.CREATED, data, headers);
+    }
+
+    static NoContent() {
+        return this.parse(HttpStatusCode.NOT_CONTENT);
+    }
+
     static parse(statusCode: HttpStatusCode, data?: any, headers?: any) {
         data = data ? data : {};
         headers = headers ? headers : {}

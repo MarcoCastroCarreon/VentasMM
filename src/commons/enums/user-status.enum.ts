@@ -1,0 +1,4 @@
+export enum UserStatusEnum{
+    PENDING_CONFIRMATION = "PENDING_CONFIRMATION",
+    ENABLED = "ENABLED"
+}

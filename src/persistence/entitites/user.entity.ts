@@ -28,12 +28,22 @@ export default class User extends BaseEntity{
     @Column({name: 'TOKEN', nullable: false, type:'varchar'})
     token: string;
     
-    @OneToOne(_type => UserProperties, userProperties => userProperties.user)
+    @OneToOne(type => UserProperties, userProperties => userProperties.user)
     userProperties: UserProperties;
 
     static getUserByEmail(email: string): Promise<User> {
         return this.createQueryBuilder('user')
             .where('user.email = :email', {email})
             .getOne();
+    }
+    
+    static getUserById(userId: number): Promise<User>{
+        return this.createQueryBuilder('user')
+            .leftJoinAndSelect('user.userProperties', 'userProperties')
+            .where('user.id = :userId', {userId})
+            .andWhere('user.userType = :userType',{userType: UserTypesEnum.ADMIN})
+            .andWhere('user.status = :status',{status: UserStatusEnum.ENABLED})
+            .andWhere('user.status = :status' ,{status: UserStatusEnum.PENDING_CONFIRMATION})
+            .getOne()
     }
 }

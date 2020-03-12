@@ -1,11 +1,11 @@
 import * as uuid from 'uuid';
-import { CreateUserRequest, CreateUserResponse } from "./interface/user.interface";
+import { CreateUserRequest, CreateUserResponse, InfoAdminResponse } from "./interface/user.interface";
 import User from "../../persistence/entitites/user.entity";
 import UserDAO from "./user.dao";
 import UserProperties from "../../persistence/entitites/userproperties.entity";
 import UserPropertiesDAO from "./user-properties.dao";
 import { UserTypesEnum } from "../../commons/enums/types-users.enum";
-import { ConflictException, InternalServerErrorException } from "../../commons/responses/Exception.index";
+import { ConflictException, InternalServerErrorException} from "../../commons/responses/Exception.index";
 import { UserStatusEnum } from "../../commons/enums/user-status.enum";
 import { Utils}  from '../../commons/utils/utils'
 import CatCountryDAO from '../../persistence/cat-dao/cat-country.dao';
@@ -53,5 +53,18 @@ export default class UserServices {
 
     }
 
-    
+    static async InfoAdmin(userId: number): Promise<InfoAdminResponse>{
+        console.log(`Service START --> ${this.InfoAdmin.name}`);
+        const user: User = await UserDAO.getUserById(userId);
+        if (!user) throw new ConflictException('VENTAS_MM_COMMON_NOT_FOUND_404', { error: `user ${userId} not exist` });
+        const {userType, status, creationDate, userProperties} = user;
+        console.log(`Service END --> ${this.InfoAdmin.name}`);
+        return{
+            name: userProperties.name,
+            lastName: userProperties.lastName,
+            userType,
+            status,
+            creationDate
+        }
+    }
 }

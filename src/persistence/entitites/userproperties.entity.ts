@@ -25,4 +25,13 @@ export default class UserProperties extends BaseEntity{
 
     @Column({name: 'ADDRESS'})
     address: string;
+
+
+    // static getUserPropertiesById(userId: number): Promise<UserProperties>{
+    //     return this.createQueryBuilder('userProperties')
+    //         .leftJoinAndSelect('userProperties.user','user')
+    //         .where('user.id = :userId', {userId})
+    //         .getOne()
+    // }
+
 }

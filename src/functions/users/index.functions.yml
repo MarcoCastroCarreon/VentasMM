@@ -15,3 +15,12 @@ infoUserAdmin:
             method: get
             path: users/{userId}
             cors: true
+
+confirmUser:
+    handler: src/functions/users/confirm-user.handler
+    environment: ${file(environment/variables.yml):CONFIRM_USER_ENV} 
+    events:
+        - http:
+            method: put
+            path: users/{userId}
+            cors: true

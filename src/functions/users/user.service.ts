@@ -53,12 +53,12 @@ export default class UserServices {
 
     }
 
-    static async InfoAdmin(userId: number): Promise<InfoAdminResponse>{
-        console.log(`Service START --> ${this.InfoAdmin.name}`);
+    static async infoAdmin(userId: number): Promise<InfoAdminResponse>{
+        console.log(`Service START --> ${this.infoAdmin.name}`);
         const user: User = await UserDAO.getUserById(userId);
         if (!user) throw new ConflictException('VENTAS_MM_COMMON_NOT_FOUND_404', { error: `user ${userId} not exist` });
         const {userType, status, creationDate, userProperties} = user;
-        console.log(`Service END --> ${this.InfoAdmin.name}`);
+        console.log(`Service END --> ${this.infoAdmin.name}`);
         return{
             name: userProperties.name,
             lastName: userProperties.lastName,
@@ -66,5 +66,17 @@ export default class UserServices {
             status,
             creationDate
         }
+    }
+
+    static async confirmUser(userId: number, token: string): Promise<User>{
+        console.log(`Service START --> ${this.confirmUser.name}`);
+        const user: User = await UserDAO.findUser(userId, token);
+        console.log(user);
+        
+        if (!user) throw new ConflictException('VENTAS_MM_COMMON_NOT_FOUND_404', { error: `user ${userId} not exist` });
+        user.status= UserStatusEnum.ENABLED;
+        await UserDAO.saveUser(user);
+        console.log(`Service END --> ${this.confirmUser.name}`);
+        return user;
     }
 }

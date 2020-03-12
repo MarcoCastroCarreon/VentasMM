@@ -25,3 +25,7 @@ export interface InfoAdminResponse{
     status: string,
     creationDate: Date
 }
+
+export interface UserConfirmation{
+    token: string
+}

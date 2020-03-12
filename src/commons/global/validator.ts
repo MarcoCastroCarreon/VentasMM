@@ -10,17 +10,17 @@ export async function schemaValidator(
   try {
     await transformAndValidate(schema, JSON.parse(json));
   } catch (error) {
-    console.log(error);
     throw new BadRequestException("VENTAS_MM_COMMON_BAD_REQUEST_400", {
-      error: errorParser(error)
+      error: await errorParser(error)
     });
   }
 }
 
 export async function errorParser(dataArray: Array<ValidatorErrorInterfaceObject>) {
-  let errorPack: string[];
-  console.log(dataArray);
+  let errorPack: string[] = [];
+  console.log('Error Array ===>>',dataArray);
   for (let data of dataArray) {
+    console.log(data);
       if (data.children && data.children.length) errorParser(data.children);
       else errorPack.push(`Property ${data.property} rejected by ${Object.values(data.constraints)[0]}.`);
   }

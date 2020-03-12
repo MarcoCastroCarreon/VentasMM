@@ -23,6 +23,12 @@ export default class UserDAO{
         return user;
     }
 
+    static async findUser(id: number, token: string): Promise<User>{
+        console.log(`DAO: START -->${this.findUser.name}`);
+        const user= await User.findUser(id,token);
+        console.log(`DAO: END -->${this.findUser.name}`);
+        return user;
+    }
 
     
 }

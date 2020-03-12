@@ -13,7 +13,7 @@ const originalHandler: APIGatewayProxyHandler = async(event: APIGatewayProxyEven
     const {userId} = event.pathParameters;
     if (!userId) throw new BadRequestException ('VENTAS_MM_COMMON_BAD_REQUEST_400',{error: `${userId} required`})
     try {
-        const response: InfoAdminResponse = await UserServices.InfoAdmin(+userId);
+        const response: InfoAdminResponse = await UserServices.infoAdmin(+userId);
         console.log(`HANDLER END ---> ${context.functionName}`);
         return ResponseCode.Ok(response);
     } catch (error) {
@@ -23,3 +23,4 @@ const originalHandler: APIGatewayProxyHandler = async(event: APIGatewayProxyEven
 }
     export const handler = middy(originalHandler)
     .use(createDbConnection())
+    

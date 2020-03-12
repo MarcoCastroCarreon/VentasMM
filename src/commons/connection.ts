@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { createConnection } from 'typeorm';
+import { createConnection, getConnection } from 'typeorm';
 import User from '../persistence/entitites/user.entity';
 import UserProperties from '../persistence/entitites/userproperties.entity';
 import CatCountry from '../persistence/entitites/cat-country.entity';
@@ -25,5 +25,5 @@ export async function initConnection() {
         synchronize: false,
         supportBigNumbers: true,
         bigNumberStrings: true
-    }).then(conn => console.log('Connection Connected ==> ', conn.isConnected));
+    }).then(conn => console.log('Connection Connected ==> ', conn.isConnected)).catch(async err => await getConnection())
 }

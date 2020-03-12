@@ -12,9 +12,8 @@ export const schemaValidatorMiddleware: Function = (config: any) => {
       await schemaValidator(config.schema, handler.event.body);
       console.info("END ==> schemaValidator");
     },
-    onError: (handler: any) => {
-      console.log('Error middy validator ===>');
-      console.log(handler.error);
+    onError: (handler: any, next: any) => {
+      console.log('Error middy ', handler.error);
       const e = handlerException(handler.error);
       return handler.callback(null, e);
     }

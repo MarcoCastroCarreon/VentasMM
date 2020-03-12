@@ -1,5 +1,6 @@
 {
     "VENTAS_MM_COMMON_BAD_REQUEST_400": "Bad Request ${error}",
     "VENTAS_MM_COMMON_CONFLICT_409": "Conflict ${error}",
-    "VENTAS_MM_COMMON_INTERNAL_SERVER_ERROR_500": "Internal Server Error ${errors}"
+    "VENTAS_MM_COMMON_INTERNAL_SERVER_ERROR_500": "Internal Server Error ${errors}",
+    "VENTAS_MM_COMMIN_NOT_FOUND_404":"Not Found ${error}"
 }

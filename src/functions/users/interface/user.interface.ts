@@ -17,3 +17,11 @@ export interface CreateUserResponse{
     email: string,
     userType: string
 }
+
+export interface InfoAdminResponse{
+    name: string,
+    lastName: string,
+    userType: string,
+    status: string,
+    creationDate: Date
+}

@@ -1,11 +1,11 @@
 import * as uuid from 'uuid';
-import { CreateUserRequest, CreateUserResponse } from "./interface/user.interface";
+import { CreateUserRequest, CreateUserResponse, InfoAdminResponse } from "./interface/user.interface";
 import User from "../../persistence/entitites/user.entity";
 import UserDAO from "./user.dao";
 import UserProperties from "../../persistence/entitites/userproperties.entity";
 import UserPropertiesDAO from "./user-properties.dao";
 import { UserTypesEnum } from "../../commons/enums/types-users.enum";
-import { ConflictException, InternalServerErrorException } from "../../commons/responses/Exception.index";
+import { ConflictException, InternalServerErrorException, NotFoundException } from "../../commons/responses/Exception.index";
 import { UserStatusEnum } from "../../commons/enums/user-status.enum";
 import { Utils}  from '../../commons/utils/utils'
 import CatCountryDAO from '../../persistence/cat-dao/cat-country.dao';
@@ -53,5 +53,24 @@ export default class UserServices {
 
     }
 
-    
+    static async InfoAdmin(userId: number): Promise<InfoAdminResponse>{
+        const user: User = await UserDAO.getUserById(userId);
+        const userproperties: UserProperties = await UserPropertiesDAO.getUserPropertiesById(userId);
+
+        if (!user) throw new ConflictException('VENTAS_MM_COMMIN_NOT_FOUND_404', { error: `user ${user.id} not exist` });
+        if (!userproperties) throw new ConflictException('VENTAS_MM_COMMIN_NOT_FOUND_404', { error: `user ${user.id} not exist` });
+ 
+        const { userType, status, creationDate } = user;
+        const { name, lastName } = userproperties;
+
+        if(userType == UserTypesEnum.ADMIN && status == UserStatusEnum.ENABLED || status == UserStatusEnum.PENDING_CONFIRMATION){
+            return {
+                name,
+                lastName,
+                userType,
+                status,
+                creationDate
+            }
+        } throw new NotFoundException('VENTAS_MM_COMMIN_NOT_FOUND_404',{error:`user with id: ${user.id} isn't ADMIN`});
+    }
 }

@@ -6,3 +6,12 @@ createUserAdmin:
             method: post
             path: admin/users
             cors: true
+
+infoUserAdmin:
+    handler: src/functions/users/info-admin.handler
+    environment: ${file(environment/variables.yml):INFO_USER_ADMIN_ENV}
+    events:
+        - http:
+            method: get
+            path: users/{userId}
+            cors: true

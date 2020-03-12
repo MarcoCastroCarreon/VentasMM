@@ -1,4 +1,5 @@
 import User from "../../persistence/entitites/user.entity";
+import UserProperties from "../../persistence/entitites/userproperties.entity";
 
 
 
@@ -17,5 +18,15 @@ export default class UserDAO{
         console.log(`DAO: END --> ${this.getUserByEmail.name}`);
         return user;
     }
+
+    static async getUserById(id: number): Promise<User>{
+        console.log(`DAO: START -->${this.getUserById.name}`);
+        const user= await User.getUserById(id);
+        console.log(user)
+        console.log(`DAO: END -->${this.getUserById.name}`);
+        return user;
+    }
+
+
     
 }

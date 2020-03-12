@@ -6,7 +6,7 @@ import CatCountry from './cat-country.entity';
 @Entity({name: 'USER_PROPERTIES'})
 export default class UserProperties extends BaseEntity{
 
-    @OneToOne(_type => User, user => user.userProperties, {primary: true})
+    @OneToOne(type => User, user => user.userProperties, {primary: true})
     @JoinColumn({name: 'USER_ID'})
     user: User;
 
@@ -25,4 +25,13 @@ export default class UserProperties extends BaseEntity{
 
     @Column({name: 'ADDRESS'})
     address: string;
+
+
+    static getUserPropertiesById(userId: number): Promise<UserProperties>{
+        return this.createQueryBuilder('userProperties')
+            .leftJoinAndSelect('userProperties.user','user')
+            .where('user.id = :userId', {userId})
+            .getOne()
+    }
+
 }

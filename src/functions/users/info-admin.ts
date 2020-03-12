@@ -3,20 +3,19 @@ import { APIGatewayProxyHandler, Context, APIGatewayProxyResult, APIGatewayProxy
 import { InfoAdminResponse } from '../users/interface/user.interface'
 import UserServices from "./user.service";
 import { createDbConnection } from "../../commons/middlewares/create-connection.middleware";
-import { handlerException } from "../../commons/responses/Exception.index";
+import { handlerException, BadRequestException } from "../../commons/responses/Exception.index";
+import ResponseCode from "../../commons/responses/Response.index";
 
 const originalHandler: APIGatewayProxyHandler = async(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult>=>{
     context.callbackWaitsForEmptyEventLoop=false;
     console.log(`HANDLER START ---> ${context.functionName}`);
 
+    const {userId} = event.pathParameters;
+    if (!userId) throw new BadRequestException ('VENTAS_MM_COMMON_BAD_REQUEST_400',{error: `${userId} required`})
     try {
-        const {userId} = event.pathParameters;
-        console.log(userId);
         const response: InfoAdminResponse = await UserServices.InfoAdmin(+userId);
-        return{
-            statusCode: 201,
-            body: JSON.stringify(response)
-        }
+        console.log(`HANDLER END ---> ${context.functionName}`);
+        return ResponseCode.Ok(response);
     } catch (error) {
         console.log(`Handler Error: `,error);
         return handlerException(error);

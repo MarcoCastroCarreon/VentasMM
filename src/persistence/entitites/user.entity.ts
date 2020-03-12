@@ -39,7 +39,11 @@ export default class User extends BaseEntity{
     
     static getUserById(userId: number): Promise<User>{
         return this.createQueryBuilder('user')
+            .leftJoinAndSelect('user.userProperties', 'userProperties')
             .where('user.id = :userId', {userId})
+            .andWhere('user.userType = :userType',{userType: UserTypesEnum.ADMIN})
+            .andWhere('user.status = :status',{status: UserStatusEnum.ENABLED})
+            .andWhere('user.status = :status' ,{status: UserStatusEnum.PENDING_CONFIRMATION})
             .getOne()
     }
 }

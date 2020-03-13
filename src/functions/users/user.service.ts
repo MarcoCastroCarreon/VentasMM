@@ -90,7 +90,7 @@ export default class UserServices {
      * @returns {Promise} Object of type User
      * 
      */  
-    static async confirmUser(userId: number, token: string): Promise<User> {
+    static async confirmUser(userId: number, token: string): Promise<void> {
         console.log(`Service START --> ${this.confirmUser.name}`);
         const user: User = await UserDAO.findUser(userId, token);
 
@@ -98,6 +98,5 @@ export default class UserServices {
         user.status = UserStatusEnum.ENABLED;
         await UserDAO.saveUser(user);
         console.log(`Service END --> ${this.confirmUser.name}`);
-        return user;
     }
 }

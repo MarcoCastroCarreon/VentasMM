@@ -8,6 +8,22 @@ import { createDbConnection } from "../../commons/middlewares/create-connection.
 import { ConfirmUserSchema } from "./schema/confirm-user.schema";
 import { schemaValidatorMiddleware } from "../../commons/middlewares/schemaValidator.middleware";
 
+/**
+ * 
+ * @api {put} /users/{userId} Update the status of user
+ * @apiName confirmUser
+ * @apiGroup users
+ * 
+ * @apiRequestExample 
+ * 
+ * {
+ *   "token": string
+ * }
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ * HTTP/ 204 Not Content
+ * 
+ */
 
 const originalHandler: APIGatewayProxyHandler = async(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> => {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -16,7 +32,7 @@ const originalHandler: APIGatewayProxyHandler = async(event: APIGatewayProxyEven
     const {userId} = event.pathParameters;
     if (!userId) throw new BadRequestException ('VENTAS_MM_COMMON_BAD_REQUEST_400',{error: `${userId} required`})    
     try {
-        await UserServices.confirmUser(+userId,JSON.stringify(request));
+        await UserServices.confirmUser(+userId,request.token);
         return ResponseCode.NoContent();
     } catch (error) {
         console.log(`Handler Error: `,error);

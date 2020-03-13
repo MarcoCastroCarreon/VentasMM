@@ -43,7 +43,7 @@ export default class User extends BaseEntity{
             .where('user.id = :userId', {userId})
             .andWhere('user.userType = :userType',{userType: UserTypesEnum.ADMIN})
             .andWhere('user.status = :status',{status: UserStatusEnum.ENABLED})
-            .andWhere('user.status = :status' ,{status: UserStatusEnum.PENDING_CONFIRMATION})
+            .orWhere('user.status = :status' ,{status: UserStatusEnum.PENDING_CONFIRMATION})
             .getOne()
     }
 

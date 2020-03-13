@@ -6,6 +6,24 @@ import { createDbConnection } from "../../commons/middlewares/create-connection.
 import { handlerException, BadRequestException } from "../../commons/responses/Exception.index";
 import ResponseCode from "../../commons/responses/Response.index";
 
+/**
+ * 
+ * @api {get} /users/{userId} Get the info to user type ADMIN
+ * @apiName infoUserAdmin
+ * @apiGroup users
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ * HTTP/ 200 OK
+ * }
+ *  "name": string,
+    "lastName": string,
+    "userType": string,
+    "status": string,
+    "creationDate": Date
+ * }
+ * 
+ */
+
 const originalHandler: APIGatewayProxyHandler = async(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult>=>{
     context.callbackWaitsForEmptyEventLoop=false;
     console.log(`HANDLER START ---> ${context.functionName}`);

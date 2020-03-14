@@ -8,6 +8,34 @@ import ResponseCode from "../../commons/responses/Response.index";
 import { schemaValidatorMiddleware } from "../../commons/middlewares/schemaValidator.middleware";
 import { CreateUserSchema } from "./schema/user.schema";
 
+/**
+ * @api {post} /admin/users Create a new user of type ADMIN
+ * @apiName createUserAdmin 
+ * @apiGroup users
+ * 
+ * @apiResquestExample
+ * {
+ *   "email": string,
+ *   "password": string,
+ *   "userType": string,
+ *   "status": string,
+ *   "creationDate": Date,
+ *   "name": string,
+ *   "lastName": string,
+ *   "country": number,
+ *   "phone": string,
+ *   "address": string,
+ *   "token": string
+ * }
+ * 
+ * @apiSuccessExample {json}  Success Response:
+ * HTTP/ 201 Created
+ * {
+ *  "id": 0,
+ *  "email": string,
+ *  "userType": string
+ * }
+ */
 const originalHandler: APIGatewayProxyHandler = async(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
     context.callbackWaitsForEmptyEventLoop= false;
     console.log(`Handler START ---> ${context.functionName}`);

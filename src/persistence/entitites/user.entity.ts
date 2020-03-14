@@ -43,7 +43,15 @@ export default class User extends BaseEntity{
             .where('user.id = :userId', {userId})
             .andWhere('user.userType = :userType',{userType: UserTypesEnum.ADMIN})
             .andWhere('user.status = :status',{status: UserStatusEnum.ENABLED})
-            .andWhere('user.status = :status' ,{status: UserStatusEnum.PENDING_CONFIRMATION})
+            .orWhere('user.status = :status' ,{status: UserStatusEnum.PENDING_CONFIRMATION})
+            .getOne()
+    }
+
+    static findUser(userId: number, token: string): Promise<User>{
+        return this.createQueryBuilder('user')
+            .where('user.id = :userId',{userId})
+            .andWhere('user.token = :token',{token})
+            .andWhere('user.status = :status',{status: UserStatusEnum.PENDING_CONFIRMATION})
             .getOne()
     }
 }

@@ -11,13 +11,14 @@ export const createDbConnection = (config?: any) => {
             console.log('Midd: END ==> createDbConnection');
         },
         after: async (handler: any, next: any) => {
+            console.log('Ending connection.....')
             await getConnection().close();
         },
         onError: (handler: any, next: any) => {
             console.log('Error middy validator ===>');
             const e = handlerException(handler.error);
             console.log(e);
-            return handler.callback(e, null);
+            return handler.callback(null, e);
         }
     })
 }

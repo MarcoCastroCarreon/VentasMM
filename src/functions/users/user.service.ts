@@ -113,7 +113,6 @@ export default class UserServices {
             if (!userP) throw new ConflictException('VENTAS_MM_COMMON_NOT_FOUND_404', { error: `user ${userId} not exist` });
             await UserPropertiesDAO.deleteUser(userP);
             const user = await UserDAO.findUserById(userId);
-            if (!user) throw new ConflictException('VENTAS_MM_COMMON_NOT_FOUND_404', { error: `user ${userId} not exist` });
             await UserDAO.deleteUser(user);
             console.log(`Service END --> ${this.deleteUser.name}`); 
         } catch (error) {

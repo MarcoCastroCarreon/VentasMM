@@ -75,7 +75,7 @@ export default class UserDAO {
      */
     static async deleteUser(user: User): Promise<void> {
         console.log(`DAO: START -->${this.deleteUser.name}`);
-        await User.delete(user);
+        await User.remove(user);
         console.log(`DAO: END -->${this.deleteUser.name}`);
     }
 

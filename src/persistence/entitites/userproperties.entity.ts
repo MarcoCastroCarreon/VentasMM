@@ -34,12 +34,4 @@ export default class UserProperties extends BaseEntity{
         .andWhere('user.userType = :userType',{userType: UserTypesEnum.ADMIN})
         .getOne() 
     }
-
-    // static getUserPropertiesById(userId: number): Promise<UserProperties>{
-    //     return this.createQueryBuilder('userProperties')
-    //         .leftJoinAndSelect('userProperties.user','user')
-    //         .where('user.id = :userId', {userId})
-    //         .getOne()
-    // }
-
 }

@@ -24,7 +24,7 @@ const originalHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEve
     console.log(id);
 
     if (!userId) throw new BadRequestException('VENTAS_MM_COMMON_BAD_REQUEST_400', { error: `${userId} required` })
-    if (Number.isInteger(id) == false) throw new BadRequestException('VENTAS_MM_COMMON_BAD_REQUEST_400', { error: `${userId} it's not a number` })
+    if (isNaN(id) == false) throw new BadRequestException('VENTAS_MM_COMMON_BAD_REQUEST_400', { error: `${userId} it's not a number` })
 
     try {
         await UserServices.deleteUser(id);

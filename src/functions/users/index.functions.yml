@@ -24,3 +24,12 @@ confirmUser:
             method: put
             path: users/{userId}
             cors: true
+
+deleteUser:
+    handler: src/functions/users/delete.handler
+    environment: ${file(environment/variables.yml):DELETE_USER_ENV} 
+    events:
+        - http:
+            method: delete
+            path: users/{userId}
+            cors: true

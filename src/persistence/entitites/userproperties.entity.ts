@@ -2,6 +2,7 @@ import 'reflect-metadata'
 import { Entity, BaseEntity, Column, OneToOne, JoinColumn } from "typeorm";
 import User  from "./user.entity";
 import CatCountry from './cat-country.entity';
+import { UserTypesEnum } from '../../commons/enums/types-users.enum';
 
 @Entity({name: 'USER_PROPERTIES'})
 export default class UserProperties extends BaseEntity{
@@ -26,6 +27,13 @@ export default class UserProperties extends BaseEntity{
     @Column({name: 'ADDRESS'})
     address: string;
 
+    static findUserById(userId: number): Promise<UserProperties>{
+        return this.createQueryBuilder('userProperties')
+        .leftJoinAndSelect('userProperties.user', 'user')
+        .where('user.id = :userId', {userId})
+        .andWhere('user.userType = :userType',{userType: UserTypesEnum.ADMIN})
+        .getOne() 
+    }
 
     // static getUserPropertiesById(userId: number): Promise<UserProperties>{
     //     return this.createQueryBuilder('userProperties')

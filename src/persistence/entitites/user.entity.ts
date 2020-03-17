@@ -54,4 +54,12 @@ export default class User extends BaseEntity{
             .andWhere('user.status = :status',{status: UserStatusEnum.PENDING_CONFIRMATION})
             .getOne()
     }
+
+    static findUserById(userId: number): Promise<User>{
+        return this.createQueryBuilder('user')
+        .where('user.id = :userId', {userId})
+        .andWhere('user.userType = :userType',{userType: UserTypesEnum.ADMIN})
+        .getOne() 
+    }
+
 }

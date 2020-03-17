@@ -36,8 +36,8 @@ import { CreateUserSchema } from "./schema/user.schema";
  *  "userType": string
  * }
  */
-const originalHandler: APIGatewayProxyHandler = async(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
-    context.callbackWaitsForEmptyEventLoop= false;
+const originalHandler: APIGatewayProxyHandler = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
+    context.callbackWaitsForEmptyEventLoop = false;
     console.log(`Handler START ---> ${context.functionName}`);
 
     try {
@@ -46,10 +46,10 @@ const originalHandler: APIGatewayProxyHandler = async(event: APIGatewayEvent, co
         console.log(`Handler END ---> ${context.functionName}`);
         return ResponseCode.Created(response);
     } catch (error) {
-        console.log(`Handler Error: `,error);
+        console.log(`Handler Error: `, error);
         return handlerException(error);
     }
 }
-    export const handler = middy(originalHandler)
-        .use(createDbConnection())
-        .use(schemaValidatorMiddleware({schema: CreateUserSchema}))
+export const handler = middy(originalHandler)
+    .use(createDbConnection())
+    .use(schemaValidatorMiddleware({ schema: CreateUserSchema }))

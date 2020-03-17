@@ -54,4 +54,13 @@ export default class User extends BaseEntity{
             .andWhere('user.status = :status',{status: UserStatusEnum.PENDING_CONFIRMATION})
             .getOne()
     }
+
+    static getAllAdmins(page: number, perpage: number):Promise<[User[], number]>{
+        return this.createQueryBuilder('user')
+            .leftJoinAndSelect('user.userProperties', 'userProperties')
+            .where('user.userType = :userType',{userType: UserTypesEnum.ADMIN})
+            .take(+perpage)
+            .skip((page -1)*perpage)
+            .getManyAndCount();
+    }
 }

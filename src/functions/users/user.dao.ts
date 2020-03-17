@@ -1,6 +1,7 @@
 import User from "../../persistence/entitites/user.entity";
+import { initConnection } from "../../commons/connection";
 
-export default class UserDAO{
+export default class UserDAO {
 
     /**
      * Save a new user 
@@ -8,7 +9,7 @@ export default class UserDAO{
      * @param user The type User entity
      * @returns {Promise} The user info
      */
-    static async saveUser(user: User): Promise<User>{
+    static async saveUser(user: User): Promise<User> {
         console.log(`DAO START --> ${this.saveUser.name}`);
         await User.save(user);
         console.log(`DAO END --> ${this.saveUser.name}`);
@@ -32,9 +33,9 @@ export default class UserDAO{
      * @param id The user id
      * @returns {Promise} The user info
      */
-    static async getUserById(id: number): Promise<User>{
+    static async getUserById(id: number): Promise<User> {
         console.log(`DAO: START -->${this.getUserById.name}`);
-        const user= await User.getUserById(id);
+        const user = await User.getUserById(id);
         console.log(`DAO: END -->${this.getUserById.name}`);
         return user;
     }
@@ -46,12 +47,25 @@ export default class UserDAO{
      * @param token The user token
      * @returns {Promise} The user info
      */
-    static async findUser(id: number, token: string): Promise<User>{
+    static async findUser(id: number, token: string): Promise<User> {
         console.log(`DAO: START -->${this.findUser.name}`);
-        const user= await User.findUser(id,token);
+        const user = await User.findUser(id, token);
         console.log(`DAO: END -->${this.findUser.name}`);
         return user;
     }
 
-    
+    /**
+     * Search all users type ADMIN 
+     * @author alma
+     * @param page The page to be displayed
+     * @param perpage The number of elements to be displayed per page.
+     * @returns {Promise} Object with a object of User  with the user data, and a number that will be equal to the results found
+     */
+    static async findAlllAdmins(page: number, perpage: number): Promise<[User[], number]> {
+        console.log(`DAO: START -->${this.findAlllAdmins.name}`);
+        const user = await User.getAllAdmins(page, perpage);
+        console.log(`DAO: END -->${this.findAlllAdmins.name}`);
+        return user;
+    }
+
 }

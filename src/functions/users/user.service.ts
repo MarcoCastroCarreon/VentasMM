@@ -82,14 +82,14 @@ export default class UserServices {
         }
     }
 
-    /**
-    * 
-    * @author alma
-    * @param userId The user id
-    * @param token The token of user
-    * @returns {Promise} Object of type User
-    * 
-    */
+     /**
+     * 
+     * @author alma
+     * @param userId The user id
+     * @param token The token of user
+     * @returns {Promise} void
+     * 
+     */  
     static async confirmUser(userId: number, token: string): Promise<void> {
         console.log(`Service START --> ${this.confirmUser.name}`);
         const user: User = await UserDAO.findUser(userId, token);
@@ -98,6 +98,26 @@ export default class UserServices {
         user.status = UserStatusEnum.ENABLED;
         await UserDAO.saveUser(user);
         console.log(`Service END --> ${this.confirmUser.name}`);
+    }
+    /**
+     * 
+     * @author alma
+     * @param userId The user id
+     * @returns {Promise} void
+     * 
+     */  
+    static async deleteUser(userId: number): Promise<void>{
+        console.log(`Service START --> ${this.deleteUser.name}`);
+        try {
+            const userP = await UserPropertiesDAO.findUserById(userId);
+            if (!userP) throw new ConflictException('VENTAS_MM_COMMON_NOT_FOUND_404', { error: `user ${userId} not exist` });
+            await UserPropertiesDAO.deleteUser(userP);
+            const user = await UserDAO.findUserById(userId);
+            await UserDAO.deleteUser(user);
+            console.log(`Service END --> ${this.deleteUser.name}`); 
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     /**

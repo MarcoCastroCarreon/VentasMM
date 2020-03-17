@@ -55,6 +55,13 @@ export default class User extends BaseEntity{
             .getOne()
     }
 
+    static findUserById(userId: number): Promise<User>{
+        return this.createQueryBuilder('user')
+        .where('user.id = :userId', {userId})
+        .andWhere('user.userType = :userType',{userType: UserTypesEnum.ADMIN})
+        .getOne() 
+    }
+
     static getAllAdmins(page: number, perpage: number):Promise<[User[], number]>{
         return this.createQueryBuilder('user')
             .leftJoinAndSelect('user.userProperties', 'userProperties')

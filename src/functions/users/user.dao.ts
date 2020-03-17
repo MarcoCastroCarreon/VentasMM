@@ -1,5 +1,4 @@
 import User from "../../persistence/entitites/user.entity";
-import { initConnection } from "../../commons/connection";
 
 export default class UserDAO {
 
@@ -52,6 +51,31 @@ export default class UserDAO {
         const user = await User.findUser(id, token);
         console.log(`DAO: END -->${this.findUser.name}`);
         return user;
+    }
+
+   /**
+     * Search user by id  
+     * @author alma
+     * @param id The user id
+     * @returns {Promise} The user info
+     */
+    static async findUserById(userId): Promise<User> {
+        console.log(`DAO: START -->${this.findUserById.name}`);
+        const user = await User.findUserById(userId);
+        console.log(`DAO: END -->${this.findUserById.name}`);
+        return user;
+    }
+
+    /**
+     * Delete user  
+     * @author alma
+     * @param user type User entity
+     * @returns {Promise} void
+     */
+    static async deleteUser(user: User): Promise<void> {
+        console.log(`DAO: START -->${this.deleteUser.name}`);
+        await User.remove(user);
+        console.log(`DAO: END -->${this.deleteUser.name}`);
     }
 
     /**

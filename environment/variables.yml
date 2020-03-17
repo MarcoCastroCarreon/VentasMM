@@ -21,5 +21,9 @@ INFO_USER_ADMIN_ENV:
 CONFIRM_USER_ENV:
   <<: *DB_CONNECTION
 
+<<<<<<< HEAD
 DELETE_USER_ENV:
+=======
+LIST_USERS_ADMIN_ENV:
+>>>>>>> integration
   <<: *DB_CONNECTION

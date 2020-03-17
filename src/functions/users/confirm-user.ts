@@ -25,21 +25,22 @@ import { schemaValidatorMiddleware } from "../../commons/middlewares/schemaValid
  * 
  */
 
-const originalHandler: APIGatewayProxyHandler = async(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> => {
+const originalHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> => {
     context.callbackWaitsForEmptyEventLoop = false;
-    
-    const request: UserConfirmation = JSON.parse(event.body);   
-    const {userId} = event.pathParameters;
-    if (!userId) throw new BadRequestException ('VENTAS_MM_COMMON_BAD_REQUEST_400',{error: `${userId} required`})    
+    console.log(`Handler START ---> ${context.functionName}`);
+    const request: UserConfirmation = JSON.parse(event.body);
+    const { userId } = event.pathParameters;
+    if (!userId) throw new BadRequestException('VENTAS_MM_COMMON_BAD_REQUEST_400', { error: `${userId} required` })
     try {
-        await UserServices.confirmUser(+userId,request.token);
+        await UserServices.confirmUser(+userId, request.token);
+        console.log(`Handler END ---> ${context.functionName}`);
         return ResponseCode.NoContent();
     } catch (error) {
-        console.log(`Handler Error: `,error);
+        console.log(`Handler Error: `, error);
         return handlerException(error);
     }
 }
 
 export const handler = middy(originalHandler)
     .use(createDbConnection())
-    .use(schemaValidatorMiddleware({schema: ConfirmUserSchema}))
+    .use(schemaValidatorMiddleware({ schema: ConfirmUserSchema }))

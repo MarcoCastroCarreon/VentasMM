@@ -1,5 +1,4 @@
 import User from "../../persistence/entitites/user.entity";
-import UserProperties from "../../persistence/entitites/userproperties.entity";
 
 export default class UserDAO {
 
@@ -79,4 +78,17 @@ export default class UserDAO {
         console.log(`DAO: END -->${this.deleteUser.name}`);
     }
 
+    /**
+     * Search all users type ADMIN 
+     * @author alma
+     * @param page The page to be displayed
+     * @param perpage The number of elements to be displayed per page.
+     * @returns {Promise} Object with a object of User  with the user data, and a number that will be equal to the results found
+     */
+    static async findAlllAdmins(page: number, perpage: number): Promise<[User[], number]> {
+        console.log(`DAO: START -->${this.findAlllAdmins.name}`);
+        const user = await User.getAllAdmins(page, perpage);
+        console.log(`DAO: END -->${this.findAlllAdmins.name}`);
+        return user;
+    }
 }

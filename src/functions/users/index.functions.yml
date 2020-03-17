@@ -25,6 +25,7 @@ confirmUser:
             path: users/{userId}
             cors: true
 
+<<<<<<< HEAD
 deleteUser:
     handler: src/functions/users/delete.handler
     environment: ${file(environment/variables.yml):DELETE_USER_ENV} 
@@ -32,4 +33,13 @@ deleteUser:
         - http:
             method: delete
             path: users/{userId}
+=======
+listUsersAdmin:
+    handler: src/functions/users/list-user-admins.handler
+    environment: ${file(environment/variables.yml):LIST_USERS_ADMIN_ENV}
+    events:
+        - http:
+            method: get
+            path: admins
+>>>>>>> integration
             cors: true

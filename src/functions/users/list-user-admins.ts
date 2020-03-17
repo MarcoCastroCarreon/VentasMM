@@ -32,6 +32,7 @@ const originalHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEve
     console.log(`PAGE AND PER PAGE: ${page}, ${per_page}`);
     if (!page || !per_page) throw new BadRequestException('VENTAS_MM_COMMON_BAD_REQUEST_400', { error: `page and perpage and required` })
     if (+page == 0 || +per_page == 0) throw new BadRequestException('VENTAS_MM_COMMON_BAD_REQUEST_400', { error: `page and perpage cannot be 0` })
+    if (Number.isInteger(+page) && Number.isInteger(+per_page)) throw new BadRequestException('VENTAS_MM_COMMON_BAD_REQUEST_400', { error: `page and perpage and required` })
     try {
         const [response, count] = await UserServices.listUsersAdmin(+page, +per_page);
         console.log(`Handler END ---> ${context.functionName}`);

@@ -1,5 +1,5 @@
 import * as uuid from 'uuid';
-import { CreateUserRequest, CreateUserResponse, InfoAdminResponse, ListUsersAdminResponse } from "./interface/user.interface";
+import { CreateUserRequest, CreateUserResponse, InfoAdminResponse } from "./interface/user.interface";
 import User from "../../persistence/entitites/user.entity";
 import UserDAO from "./user.dao";
 import UserProperties from "../../persistence/entitites/userproperties.entity";
@@ -111,13 +111,13 @@ export default class UserServices {
     static async listUsersAdmin(page: number, perpage: number): Promise<[User[], number]> {
         console.log(`Service START --> ${this.listUsersAdmin.name}`);
         const [userl, count] = await UserDAO.findAlllAdmins(page, perpage);
-        var users = [];
+        let users = [];
         if (!userl || count == 0) {
             users = [];
         } new ConflictException('VENTAS_MM_COMMON_NOT_FOUND_404', { error: `There are no registered users of type ADMIN` });
         console.log(userl);
         userl.forEach(user => {
-            var list = {
+            let list = {
                 id: user.id,
                 name: user.userProperties.name,
                 email: user.email,

@@ -41,7 +41,6 @@ const originalHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEve
         console.log(`Handler Error: `, error);
         return handlerException(error);
     }
-s
 }
 export const handler = middy(originalHandler)
     .use(createDbConnection())

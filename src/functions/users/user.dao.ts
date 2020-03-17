@@ -67,5 +67,4 @@ export default class UserDAO {
         console.log(`DAO: END -->${this.findAlllAdmins.name}`);
         return user;
     }
-
 }

@@ -24,3 +24,12 @@ confirmUser:
             method: put
             path: users/{userId}
             cors: true
+
+listUsersAdmin:
+    handler: src/functions/users/list-user-admins.handler
+    environment: ${file(environment/variables.yml):LIST_USERS_ADMIN_ENV}
+    events:
+        - http:
+            method: get
+            path: admins
+            cors: true

@@ -29,3 +29,11 @@ export interface InfoAdminResponse{
 export interface UserConfirmation{
     token: string
 }
+
+export interface ListUsersAdminResponse{
+    id: number,
+    name: string,
+    email: string,
+    phone: string,
+    address: string
+}

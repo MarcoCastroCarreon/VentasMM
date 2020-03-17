@@ -66,7 +66,7 @@ export default class UserServices {
      * @param userId The user id
      * @returns {Promise} The info user data
      * 
-     */  
+     */
     static async infoAdmin(userId: number): Promise<InfoAdminResponse> {
         console.log(`Service START --> ${this.infoAdmin.name}`);
         const user: User = await UserDAO.getUserById(userId);
@@ -82,14 +82,14 @@ export default class UserServices {
         }
     }
 
-     /**
-     * 
-     * @author alma
-     * @param userId The user id
-     * @param token The token of user
-     * @returns {Promise} Object of type User
-     * 
-     */  
+    /**
+    * 
+    * @author alma
+    * @param userId The user id
+    * @param token The token of user
+    * @returns {Promise} Object of type User
+    * 
+    */
     static async confirmUser(userId: number, token: string): Promise<void> {
         console.log(`Service START --> ${this.confirmUser.name}`);
         const user: User = await UserDAO.findUser(userId, token);
@@ -98,5 +98,36 @@ export default class UserServices {
         user.status = UserStatusEnum.ENABLED;
         await UserDAO.saveUser(user);
         console.log(`Service END --> ${this.confirmUser.name}`);
+    }
+
+    /**
+    * 
+    * @author alma
+    * @param page The page to be displayed
+    * @param perpage The number of elements to be displayed per page.
+    * @returns {Promise} Object with a object of User  with the user data, and a number that will be equal to the results found
+    * 
+    */
+    static async listUsersAdmin(page: number, perpage: number): Promise<[User[], number]> {
+        console.log(`Service START --> ${this.listUsersAdmin.name}`);
+        const [userl, count] = await UserDAO.findAlllAdmins(page, perpage);
+        let users = [];
+        if (!userl || count == 0) {
+            users = [];
+        } new ConflictException('VENTAS_MM_COMMON_NOT_FOUND_404', { error: `There are no registered users of type ADMIN` });
+        console.log(userl);
+        userl.forEach(user => {
+            let list = {
+                id: user.id,
+                name: user.userProperties.name,
+                email: user.email,
+                phone: user.userProperties.phone,
+                address: user.userProperties.address,
+            }
+            users.push(list);
+        });
+
+        console.log(`Service END --> ${this.listUsersAdmin.name}`);
+        return [users, count];
     }
 }

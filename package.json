@@ -12,7 +12,7 @@
         "middy": "^0.33.2",
         "mysql": "^2.18.1",
         "source-map-support": "^0.5.10",
-        "typeorm": "^0.2.24"
+        "typeorm": "^0.2.25"
     },
     "devDependencies": {
         "@types/aws-lambda": "^8.10.17",

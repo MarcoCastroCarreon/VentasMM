@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "lambda-proxy-utils": "^2.1.4",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.21",
         "middy": "^0.33.2",
         "mysql": "^2.18.1",
         "source-map-support": "^0.5.10",
